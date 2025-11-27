@@ -1,0 +1,272 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  background: url("background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+/* hides things oooo spookyyyy */
+.hidden {
+  display: none;
+}
+
+.landing {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;      
+  justify-content: center;
+  padding-left: 0;
+  transition: opacity 0.6s ease;
+}
+
+#closed-notebook {
+  max-width: 520px;
+  width: 40vw;
+  cursor: pointer;
+  transition: transform 0.2s ease-out;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,.25));
+}
+
+#closed-notebook:hover {
+  transform: translateY(-10px);
+}
+
+/* shake animation before opening */
+@keyframes shake {
+  0% { transform: translate(0) rotate(0deg); }
+  20% { transform: translate(-4px) rotate(-2deg); }
+  40% { transform: translate(4px) rotate(2deg); }
+  60% { transform: translate(-3px) rotate(-1.5deg); }
+  80% { transform: translate(3px) rotate(1.5deg); }
+  100% { transform: translate(0) rotate(0deg); }
+}
+
+.shake {
+  animation: shake 0.45s ease-in-out;
+}
+
+.journal-layout {
+  display: flex;
+  gap: 60px;
+  width: 100%;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 6vw;
+}
+
+.pencilcase-area {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.pencilcase {
+  width: 500px;
+  cursor: pointer;
+  transition: transform 0.25s ease-out;
+  filter: drop-shadow(0 18px 24px rgba(0,0,0,.25));
+}
+
+.pencilcase:hover {
+  transform: translateY(-10px);
+}
+
+.pencilcase-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  width: min(360px, 90vw);
+}
+
+.pencilcase-menu.hidden {
+  display: none;
+}
+
+.scrap-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 14px 18px;
+  color: #2f1a09;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  text-align: center;
+}
+
+.scrap-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.18);
+}
+
+.upload-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-btn input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.scrap-sticker {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.scrap-sticker img {
+  width: min(320px, 80vw);
+  display: block;
+}
+
+.scrap-sticker:hover {
+  transform: translateY(-4px) rotate(-1deg);
+}
+
+.notebook-wrapper {
+  position: relative;
+  flex: 1 0 min(1100px, 85vw);
+  width: min(1100px, 85vw);
+}
+
+.open-notebook {
+  width: 100%;
+}
+
+.scrap-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+}
+
+.scrap-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  min-width: 90px;
+  max-width: 90%;
+  min-height: 90px;
+  cursor: grab;
+  pointer-events: auto;
+  touch-action: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+.scrap-item.dragging {
+  cursor: grabbing;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.32);
+}
+
+.scrap-item.resizing .scrap-handle {
+  opacity: 1;
+}
+
+.scrap-content {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  display: block;
+}
+
+.scrap-card {
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+  font-weight: 600;
+  color: #39210a;
+}
+
+.scrap-card::after {
+  display: block;
+  font-size: 0.85rem;
+  margin-top: 6px;
+  color: rgba(57,33,10,0.6);
+}
+
+.scrap-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  display: block;
+}
+
+.scrap-handle {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: none;
+  background: rgba(33, 33, 33, 0.75);
+  color: #fff;
+  font-size: 0.75rem;
+  cursor: se-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.scrap-item:hover .scrap-handle {
+  opacity: 1;
+}
+
+.fade-in {
+  animation: fadeInUp .4s ease-out;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.fade-out {
+  animation: fadeOut 0.6s ease forwards;
+}
+
+@media (max-width: 900px) {
+  .journal-layout {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .pencilcase,
+  .notebook-wrapper {
+    width: 80vw;
+  }
+  .notebook-wrapper {
+    flex: 0 1 80vw;
+  }
+}
