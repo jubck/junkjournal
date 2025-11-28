@@ -6,6 +6,8 @@ const pencilcaseArea = document.querySelector(".pencilcase-area");
 const pencilcaseMenu = document.querySelector(".pencilcase-menu");
 const uploadScrapsInput = document.getElementById("upload-scraps-input");
 const scrapCanvas = document.getElementById("scrap-canvas");
+const notebookHueInput = document.getElementById("notebook-hue");
+const openNotebook = document.querySelector(".open-notebook");
 
 let opened = false;
 let scrapZIndex = 10;
@@ -255,3 +257,14 @@ function lockScrapSize(scrap) {
   scrap.style.width = `${width}px`;
   scrap.style.height = `${height}px`;
 }
+
+notebookHueInput?.addEventListener("input", updateNotebookFilter);
+
+function updateNotebookFilter() {
+  if (!openNotebook) return;
+  const hue = Number(notebookHueInput?.value || 0);
+
+  openNotebook.style.filter = `grayscale(0.15) saturate(1.6) hue-rotate(${hue}deg)`;
+}
+
+updateNotebookFilter();
